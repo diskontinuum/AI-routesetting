@@ -1,0 +1,6 @@
+README.md
+setup.py
+AI_routesetting.egg-info/PKG-INFO
+AI_routesetting.egg-info/SOURCES.txt
+AI_routesetting.egg-info/dependency_links.txt
+AI_routesetting.egg-info/top_level.txt

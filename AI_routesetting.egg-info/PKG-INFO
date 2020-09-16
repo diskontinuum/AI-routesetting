@@ -1,0 +1,17 @@
+Metadata-Version: 2.1
+Name: AI-routesetting
+Version: 0.0.1
+Summary: Learning MoonBoard boulder problems
+Home-page: https://github.com/diskontinuum/AI-routesetting
+Author: Frances Hubis
+Author-email: frances.hubis@gmail.com
+License: UNKNOWN
+Description: # AI-routesetting
+        Setting intelligent climbing routes - artificially.
+        
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: GPL-3.0-or-later
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown

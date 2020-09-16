@@ -4,7 +4,7 @@ import requests
 
 """
 Gets and saves the .json files from github that specify the 2016 moonboard setup
-and the collection of problems. 
+and the collection of problems.
 """
 ############################### Hard-coded #####################################
 PATHS = {"input":{}, "output":{}}
@@ -21,7 +21,6 @@ class BoardData():
     def fetch(self):
         data = requests.get(self.url)
         self.data = data.json()
-        print(self.data)
     def write(self):
         with open(self.outpath, 'w') as outfile:
             json.dump(self.data, outfile)
@@ -42,6 +41,7 @@ problems.write()
          "HoldSet": "OS",
          "Hold": 1,
          "Orientation": "SE"
+         ...
 **problems structure** "341208": {
       "Method": "Feet follow hands",
       "Name": "OFF THE MATTRESS",
@@ -102,4 +102,5 @@ problems.write()
       "DateInserted": "/Date(1554298797933)/"
    },
    "341206":
+   ...
 """
