@@ -33,10 +33,11 @@ PATHS['problems'] = os.path.join(os.getcwd(), 'data', 'problems_{}.json'.format(
 grade_mapping = {   '6B+':1,  '6C' :2,  '6C+':3,
                     '7A' :4,  '7A+':5,  '7B' :6,
                     '7B+':7,  '7C' :8,  '7C+':9,
-                    '8A' :10, '8A+':11, '8B':12 }
+                    '8A' :10, '8A+':11, '8B':12,
+                    '8B+' :13 }
  # 25907 problems
 horizontal = ['A', 'B', 'C', 'D','E', 'F', 'G', 'H', 'I', 'J', 'K']
-vertical = [i for i in range(1,19)]
+vertical = [i for i in range(1,19)] # note: starts at 1, like board enumeration
 
 ################################################################################
 # define a numeric moonboard grid (coordinate system)
@@ -47,14 +48,17 @@ def get_location_map(
             """
             Maps board locations from string (e.g. "A18") to a tuple (e.g. (1,18))
             that corresponds to integer coordinates on a 11x18 grid as Dict[str, Tuple[int,int]].
+            Note : The grid starts at coordinates [0,0], hence we map
+            A, ..., K -> 0,...,10
+            1,...,18 ->
             """
             location_map = {}
             location_map['horizontal_dim'] = len(horizontal)
             location_map['vertical_dim'] = len(vertical)
             for number in vertical:
-                number_for_letter = 1
+                number_for_letter = 0
                 for letter in horizontal:
-                    location_map[letter+str(number)] = (number_for_letter, number)
+                    location_map[letter+str(number)] = (number_for_letter, number-1)
                     number_for_letter += 1
             return location_map
 
@@ -101,9 +105,14 @@ def get_moves_board(
         """
         n = location_map["horizontal_dim"]
         m = location_map["vertical_dim"]
+        print("horizontal_dim = {}".format(n))
+        print("vertocal_dim = {}".format(m))
         boolean_board = np.zeros((n,m), dtype=np.uint8)  # initialize board mapping (zeros(11,18))
         for move in moves :
+            print("move : ", move)
             i, j = location_map[move["Description"]]
+            print("move['Description'] = ".format(move["Description"]))
+            print("i = {}, j = {} ".format(i, j))
             IsStart =  move["IsStart"]
             IsEnd =  move["IsEnd"]
             if IsStart and IsEnd:
