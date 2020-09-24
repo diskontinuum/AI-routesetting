@@ -7,11 +7,12 @@ Gets and saves the .json files from github that specify the 2016 moonboard setup
 and the collection of problems.
 """
 ############################### Hard-coded #####################################
+YEAR = '2016'
 PATHS = {"input":{}, "output":{}}
 PATHS["input"]["setup"]= "https://raw.github.com/e-sr/moonboard/master/problems/HoldSetup.json"
-PATHS["input"]["problems"]= "https://raw.github.com/e-sr/moonboard/master/problems/fetch/moonboard_problems_setup_2016.json"
+PATHS["input"]["problems"]= "https://raw.github.com/e-sr/moonboard/master/problems/fetch/moonboard_problems_setup_{}.json".format(YEAR)
 PATHS["output"]["setup"] = os.path.join(os.getcwd(), "setup.json")
-PATHS["output"]["problems"] = os.path.join(os.getcwd(), "problems_2016.json")
+PATHS["output"]["problems"] = os.path.join(os.getcwd(), "problems_{}.json".format(YEAR))
 ################################################################################
 
 class BoardData():
@@ -40,8 +41,8 @@ problems.write()
       "H7": {
          "HoldSet": "OS",
          "Hold": 1,
-         "Orientation": "SE"
-         ...
+         "Orientation": "SE}
+         ...}
 **problems structure** "341208": {
       "Method": "Feet follow hands",
       "Name": "OFF THE MATTRESS",
