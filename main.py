@@ -20,7 +20,7 @@ import os
 import json
 import tensorflow as tf
 import numpy as np
-from typing import Dict, Tuple, Sequence, Any
+from typing import Dict, Tuple, Sequence, Any, List
 
 
 
@@ -34,9 +34,9 @@ grade_mapping = {   '6B+':1,  '6C' :2,  '6C+':3,
                     '7A' :4,  '7A+':5,  '7B' :6,
                     '7B+':7,  '7C' :8,  '7C+':9,
                     '8A' :10, '8A+':11, '8B':12 }
-}  # 25907 problems
+ # 25907 problems
 horizontal = ['A', 'B', 'C', 'D','E', 'F', 'G', 'H', 'I', 'J', 'K']
-vertical = [1:19]
+vertical = [i for i in range(1,19)]
 
 ################################################################################
 # define a numeric moonboard grid (coordinate system)
@@ -72,7 +72,7 @@ def load_data(paths: Dict[str,str]) -> Dict[str, Any]:
     return setup, problems
 
 
-def preprocess(location_map: Dict[str, Any], problems: Dict[str, Any]) -> Any, Any:
+def preprocess(location_map: Dict[str, Any], problems: Dict[str, Any]) -> (Any, Any):
     """
     # Prepares data set.
     Each example is a 2-dimensional boolean list indicating the hold location.
@@ -90,8 +90,8 @@ def preprocess(location_map: Dict[str, Any], problems: Dict[str, Any]) -> Any, A
 
 def get_moves_board(
         moves: List[Dict[str, Any]],
-        location_map: Dict[str, Any])
-        -> np.ndarray:
+        location_map: Dict[str, Any]
+        )-> np.ndarray:
         """
         Maps moves from json file to two-dimensional numpy array,
             with integers indicating:
@@ -99,21 +99,21 @@ def get_moves_board(
                     # 2 for starting holds
                     # 3 for finishing holds
         """
-        n = location_map(horizontal_dim)
-        m = location_map(vertical_dim)
+        n = location_map["horizontal_dim"]
+        m = location_map["vertical_dim"]
         boolean_board = np.zeros((n,m), dtype=np.uint8)  # initialize board mapping (zeros(11,18))
         for move in moves :
             i, j = location_map[move["Description"]]
             IsStart =  move["IsStart"]
             IsEnd =  move["IsEnd"]
             if IsStart and IsEnd:
-                boolean_board(i,j) = 4 # hypothetical occurance only
+                boolean_board[i,j] = 4 # hypothetical occurance only
             elif IsStart: # ATTENTION, "false" not "False"
-                boolean_board(i,j) = 3
+                boolean_board[i,j] = 3
             elif IsEnd:
-                boolean_board(i,j) = 2
+                boolean_board[i,j] = 2
             else:
-                boolean_board(i,j) = 1
+                boolean_board[i,j] = 1
         return boolean_board
 
 
